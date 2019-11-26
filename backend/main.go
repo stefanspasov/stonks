@@ -1,11 +1,20 @@
 package main
 
 import (
-	"fmt"
-
-	"rsc.io/quote"
+	"log"
+	"net/http"
 )
 
 func main() {
-	fmt.Println(quote.Hello())
+	http.Handle(
+		"/",
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				log.Println("Hello")
+			},
+		),
+	)
+
+	log.Println("Now server is running on port 3000")
+	_ = http.ListenAndServe(":3000", nil)
 }
